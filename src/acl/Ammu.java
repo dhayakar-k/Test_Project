@@ -8,8 +8,15 @@ public class Ammu {
         names.forEach(name->{
             System.out.println("Name is :"+name);
         });
-        names.forEach(name1-> {
-            if (name1.equals("Ammu")) {
+        int a = 5;
+        int b = 6;
+        System.out.println(a+b);
+        String name = "ammu";
+        String name1 = "dhaya";
+        String name2 = "pinky";
+        String name3 = "bhanu";
+        names.forEach(name12-> {
+            if (name12.equals("Ammu")) {
                 System.out.println("I am Ammu");
             } else {
                 System.out.println("Other people");
