@@ -8,5 +8,12 @@ public class Ammu {
         names.forEach(name->{
             System.out.println("Name is :"+name);
         });
+        int a = 5;
+        int b = 6;
+        System.out.println(a+b);
+        String name = "ammu";
+        String name1 = "dhaya";
+        String name2 = "pinky";
+        String name3 = "bhanu";
     }
 }
