@@ -1,0 +1,81 @@
+
+
+
+Q:
+1. Should we remove existing warning, major, critical alarms
+2. How we can check the OS free space available ?
+3. In case of file size check in FWContainerController what is the maximum free space available to check is it same as alarms like Control machine -  20GB(15 GB+ 5GB), 
+   Operation machine - 25GB(15GB+ 5GB), Single Node - 28GB (23GB + 5GB) or different.
+4. I have to add 4 constants to config file ? right   
+     1. 20GB -- Control
+	 2. 25GB -- Operation
+	 3. 28GB -- single Node
+	 4. 5GB -- Free OS space
+
+
+Confirmation:
+1. FWContainer:
+   i. File Size + OS free space = space should be available on the server 
+   ii. If file size + OS free != space available on the server block the user with appropriate message.
+   iii. If there is a means to check the size at the backend before uploading, then similar check in UI needs to be implemented in the backend.
+   iv. new api to check file size + OS free space along with RBAC
+   v. check the file size and validate it with free diskspace in the below apis in FWContainerController
+      1./uploadFWBinary
+	  2. /uploadFWDocument
+	  3. /uploadFWImport
+
+2.Alarams at control and operation 
+  We have to put the condition for 
+  1. Control machine -  20GB(15 GB+ 5GB)
+  2. Operation machine - 25GB(15GB+ 5GB)
+  3. Single Node - 28GB (23GB + 5GB)
+  4. Insert new constants for 20GB, 25GB, 28GB in SinecNmsConfig.properties file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Points to check:
+1. have to handle this in both fresh and migration installation
+2. Check with Bhavin they have to replace the SinecNmsConfig.properties file because we are introducing the new key value pair.
+3. Rest ful web service under firmContainerController register for RBAC give to Ashwagantha team. 
+
+
+
+New installation should be successful
+	CA page UI - check the CA and EE certificates
+Add operation should be successful
+	CA page UI - check the CA and EE certificates
+	Oper EE certs and Oper Device CA should be fine at CA UI at Control and Operation UI.
+Load Https device certs POLICY task should run successsfully
+	The device must be loaded with the certificate and the same needs to be checked at CA UI at Operation CA.
+	Run it twice to confirm the device Cert is changed
+	Check on device BROWSER Page the Cert serial number should match CA UI device EE cert serial number
+Control Port change watch dog testing
+	put the file and test atleast twice that the port change is working at Control and Operation
+	put back the old 443 and test and close 
+	remove the file.
+
+
+
+[2022-04-01 14:35:46.756][ERROR][controlPortMonitor][INKEO36843WSCT][com.siemens.sinecnms.control.port.ControlPortChangeWatchDog][getWatchServiceInstance][Exception on creation of watch service instance ]
+java.lang.UnsupportedOperationException: null
+	at java.base/sun.nio.fs.WindowsFileSystem.close(WindowsFileSystem.java:91)
+	at com.siemens.sinecnms.control.port.ControlPortChangeWatchDog.getWatchServiceInstance(ControlPortChangeWatchDog.java:138)
+	at com.siemens.sinecnms.control.port.ControlPortChangeWatchDog.startCtrlPortChangeWatchDog(ControlPortChangeWatchDog.java:151)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+[2022-04-01 14:35:46.756][ERROR][controlPortMonitor][INKEO36843WSCT][com.siemens.sinecnms.control.port.ControlPortChangeWatchDog][startCtrlPortChangeWatchDog][Exception while creating the watch service instance: ]
+com.siemens.sinecnms.common.exceptions.SinecnmsNodeManagerException: Failed to create watch service instance
+	at com.siemens.sinecnms.control.port.ControlPortChangeWatchDog.getWatchServiceInstance(ControlPortChangeWatchDog.java:140)
+	at com.siemens.sinecnms.control.port.ControlPortChangeWatchDog.startCtrlPortChangeWatchDog(ControlPortChangeWatchDog.java:151)
+	at java.base/java.lang.Thread.run(Thread.java:829)
