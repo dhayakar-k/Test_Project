@@ -8,5 +8,12 @@ public class Ammu {
         names.forEach(name->{
             System.out.println("Name is :"+name);
         });
+        names.forEach(name1-> {
+            if (name1.equals("Ammu")) {
+                System.out.println("I am Ammu");
+            } else {
+                System.out.println("Other people");
+            }
+        });
     }
 }
